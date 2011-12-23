@@ -4,6 +4,14 @@ from bockbuild.darwinprofile import DarwinProfile
 class MonoMasterPackages:
 	def __init__(self):
 
+		# Mono
+		self.packages.extend([
+				# 'libgdiplus.py',
+				'mono-master.py',
+				# 'gtk-sharp.py',
+				# 'mono-addins.py',
+				])
+
 		# Toolchain
 		self.packages.extend([
 				'autoconf.py',
@@ -38,14 +46,6 @@ class MonoMasterPackages:
 				'hicolor-icon-theme.py',
 				'gtk-engines.py',
 				'gtk-quartz-engine.py'
-				])
-
-		# Mono
-		self.packages.extend([
-				# 'libgdiplus.py',
-				'mono-master.py',
-				# 'gtk-sharp.py',
-				# 'mono-addins.py',
 				])
 
 		self.packages = [os.path.join('..', '..', 'packages', p) for p in self.packages]
