@@ -91,7 +91,7 @@ class Package:
 		package_dest_dir = os.path.join (profile.build_root, namever)
 		package_build_dir = os.path.join (package_dest_dir, '_build')
 		build_success_file = os.path.join (profile.build_root, namever + '.success')
-		install_success_file = os.path.join (profile.build_root, namever + '.installed')
+		install_success_file = os.path.join (profile.build_root, namever + '.install')
 
 		if os.path.exists (build_success_file):
 			print 'Skipping %s - already built' % namever
