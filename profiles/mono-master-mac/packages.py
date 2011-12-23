@@ -48,4 +48,12 @@ class MonoMasterPackages:
 				'gtk-quartz-engine.py'
 				])
 
+		# Mono
+		self.packages.extend([
+				# 'mono-master.py',
+				'libgdiplus.py',
+				# 'gtk-sharp.py',
+				# 'mono-addins.py',
+				])
+
 		self.packages = [os.path.join('..', '..', 'packages', p) for p in self.packages]
