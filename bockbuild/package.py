@@ -90,15 +90,20 @@ class Package:
 		package_dir = os.path.dirname (os.path.realpath (self._path))
 		package_dest_dir = os.path.join (profile.build_root, namever)
 		package_build_dir = os.path.join (package_dest_dir, '_build')
-		build_success_file = os.path.join (profile.build_root,
-			namever + '.success')
+		build_success_file = os.path.join (profile.build_root, namever + '.success')
+		install_success_file = os.path.join (profile.build_root, namever + '.installed')
 
 		if os.path.exists (build_success_file):
 			print 'Skipping %s - already built' % namever
+			if not os.path.exists (install_success_file):
+				print 'Installing %s' % namever
+				os.chdir (package_build_dir)
+				self.cd ('%{source_dir_name}')
+				self.install ()
+				open (install_success_file, 'w').close ()
 			return
 
-		print '\n\nBuilding %s on %s (%s CPU)' % (self.name, profile.host,
-			profile.cpu_count)
+		print '\n\nBuilding %s on %s (%s CPU)' % (self.name, profile.host, profile.cpu_count)
 
 		if not os.path.exists (profile.build_root) or \
 			not os.path.isdir (profile.build_root):
@@ -116,6 +121,7 @@ class Package:
 			getattr (self, phase) ()
 
 		open (build_success_file, 'w').close ()
+		open (install_success_file, 'w').close ()
 
 	def sh (self, *commands):
 		for command in commands:
