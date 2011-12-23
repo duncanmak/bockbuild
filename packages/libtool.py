@@ -1,1 +1,1 @@
-GnuPackage ('libtool', '2.4.2')
+GnuPackage ('libtool', '2.2.10')
