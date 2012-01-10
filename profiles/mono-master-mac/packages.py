@@ -4,19 +4,11 @@ from bockbuild.darwinprofile import DarwinProfile
 class MonoMasterPackages:
 	def __init__(self):
 
-		# Mono
-		self.packages.extend([
-				# 'libgdiplus.py',
-				'mono-master.py',
-				# 'gtk-sharp.py',
-				# 'mono-addins.py',
-				])
-
 		# Toolchain
 		self.packages.extend([
-				'autoconf.py',
-				'automake.py',
-				'libtool.py', 
+				# 'autoconf.py',
+				# 'automake.py',
+				# 'libtool.py', 
 				'gettext.py',
 				'pkg-config.py'
 				])
@@ -50,8 +42,8 @@ class MonoMasterPackages:
 
 		# Mono
 		self.packages.extend([
-				# 'mono-master.py',
-				'libgdiplus.py',
+				'mono-master.py',
+				# 'libgdiplus.py',
 				# 'gtk-sharp.py',
 				# 'mono-addins.py',
 				])
