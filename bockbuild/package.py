@@ -159,7 +159,7 @@ class Package:
 		if os.path.isdir (os.path.join (self.sources[0], '.git')):
 			dirname = os.path.join (os.getcwd (), os.path.basename (self.sources[0]))
 			# self.sh ('cp -a "%s" "%s"' % (self.sources[0], dirname))
-			self.sh ('git clone --shared "%s" "%s"' % (self.sources[0], dirname)
+			self.sh ('git clone --shared "%s" "%s"' % (self.sources[0], dirname))
 			self.cd (dirname)
 		else:
 			root, ext = os.path.splitext (self.sources[0])
