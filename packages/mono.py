@@ -1,9 +1,9 @@
 class MonoPackage (Package):
 	def __init__ (self):
-		Package.__init__ (self, 'mono', '2.10.6',
+		Package.__init__ (self, 'mono', '2.10.8.1',
 			sources = [
-				'http://download.mono-project.com/sources/%{name}/%{name}-%{version}.tar.bz2',
-				'patches/mono-runtime-relocation.patch'
+				'http://download.mono-project.com/sources/%{name}/%{name}-%{version}.tar.gz',
+				'patches/mono-gtk-sharp-profiler.patch'
 			],
 			configure_flags = [
 				'--with-jit=yes',
