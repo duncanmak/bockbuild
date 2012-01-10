@@ -46,6 +46,9 @@ class Package:
 		if self.sources == None:
 			return
 
+		if not os.path.exists (package_dest_dir):
+			os.mkdir (package_dest_dir)
+
 		local_sources = []
 		for source in self.sources:
 			local_source = os.path.join (package_dir, source)
@@ -86,10 +89,15 @@ class Package:
 
 		profile = Package.profile
 
+		source_cache = os.getenv('BOCKBUILD_SOURCE_CACHE')
+		if source_cache != None:
+			print 'Using BOCKBUILD_SOURCE_CACHE = %s' % source_cache
+
 		namever = '%s-%s' % (self.name, self.version)
 		package_dir = os.path.dirname (os.path.realpath (self._path))
-		package_dest_dir = os.path.join (profile.build_root, namever)
-		package_build_dir = os.path.join (package_dest_dir, '_build')
+		package_root_dir = source_cache or profile.build_root
+		package_dest_dir = os.path.join (package_root_dir, namever)
+		package_build_dir = os.path.join (os.path.join (profile.build_root, namever), '_build')
 		build_success_file = os.path.join (profile.build_root, namever + '.success')
 		install_success_file = os.path.join (profile.build_root, namever + '.install')
 
