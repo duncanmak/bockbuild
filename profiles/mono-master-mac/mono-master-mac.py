@@ -15,6 +15,7 @@ class MonoMasterProfile (DarwinProfile, MonoMasterPackages):
 			
 		self_dir = os.path.realpath (os.path.dirname (sys.argv[0]))
 
+os.makedirs (os.path.join (self.prefix, "share", "aclocal"))
 MonoMasterProfile ().build ()
 
 profname = "mono-master-mac-env"
@@ -23,11 +24,11 @@ envscript = '''#!/bin/sh
 PROFNAME="%s"
 INSTALLDIR=%s/build-root/_install
 export DYLD_FALLBACK_LIBRARY_PATH="$INSTALLDIR/lib:/lib:/usr/lib:$DYLD_FALLBACK_LIBRARY_PATH"
-# export C_INCLUDE_PATH="$INSTALLDIR/include:$C_INCLUDE_PATH"
-# export ACLOCAL_PATH="$INSTALLDIR/share/aclocal:$ACLOCAL_PATH"
-# export ACLOCAL_FLAGS="-I $INSTALLDIR/share/aclocal $ACLOCAL_FLAGS"
-# export PKG_CONFIG_PATH="$INSTALLDIR/lib/pkgconfig:$INSTALLDIR/lib64/pkgconfig:$INSTALLDIR/share/pkgconfig:$PKG_CONFIG_PATH"
-# export CONFIG_SITE="$INSTALLDIR/$PROFNAME-config.site"
+export C_INCLUDE_PATH="$INSTALLDIR/include:$C_INCLUDE_PATH"
+export ACLOCAL_PATH="$INSTALLDIR/share/aclocal:$ACLOCAL_PATH"
+export ACLOCAL_FLAGS="-I $INSTALLDIR/share/aclocal $ACLOCAL_FLAGS"
+export PKG_CONFIG_PATH="$INSTALLDIR/lib/pkgconfig:$INSTALLDIR/lib64/pkgconfig:$INSTALLDIR/share/pkgconfig:$PKG_CONFIG_PATH"
+export CONFIG_SITE="$INSTALLDIR/$PROFNAME-config.site"
 export MONO_GAC_PREFIX="$INSTALLDIR:MONO_GAC_PREFIX"
 export MONO_ADDINS_REGISTRY="$INSTALLDIR/addinreg"
 export PATH="$INSTALLDIR/bin:$PATH"
