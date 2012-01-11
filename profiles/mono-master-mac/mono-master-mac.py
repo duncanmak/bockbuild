@@ -14,8 +14,10 @@ class MonoMasterProfile (DarwinProfile, MonoMasterPackages):
 		MonoMasterPackages.__init__ (self)
 			
 		self_dir = os.path.realpath (os.path.dirname (sys.argv[0]))
+		aclocal_dir = os.path.join (self.prefix, "share", "aclocal")
+		if not os.path.exists:
+			os.makedirs (aclocal_dir)
 
-os.makedirs (os.path.join (self.prefix, "share", "aclocal"))
 MonoMasterProfile ().build ()
 
 profname = "mono-master-mac-env"
