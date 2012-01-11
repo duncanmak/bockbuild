@@ -45,7 +45,7 @@ class MonoMasterPackages:
 				'librsvg.py',
 				'hicolor-icon-theme.py',
 				'gtk-engines.py',
-				'gtk-quartz-engine.py'
+				# 'gtk-quartz-engine.py'
 				])
 
 		self.packages = [os.path.join('..', '..', 'packages', p) for p in self.packages]
