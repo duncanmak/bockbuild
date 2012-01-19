@@ -51,7 +51,8 @@ def expand_macros (node, vars):
 
 	return node
 
-def run_shell (cmd):
+def run_shell (cmd, print_cmd = False):
+	if print_cmd: print cmd
 	proc = subprocess.Popen (cmd, shell = True)
 	exit_code = os.waitpid (proc.pid, 0)[1]
 	if not exit_code == 0:
