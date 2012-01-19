@@ -26,9 +26,4 @@ class MonoPackage (Package):
 #		Package.prep (self)
 #		self.sh ('patch -p1 < "%{sources[1]}"')
 
-	def install (self):
-		Package.install (self)
-		if Package.profile.name == 'darwin':
-			self.sh ('sed -ie "s/libcairo.so.2/libcairo.2.dylib/" "%{prefix}/etc/mono/config"')
-
 MonoPackage ()
