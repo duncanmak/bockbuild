@@ -5,11 +5,14 @@ class GtkPackage (GnomePackage):
 			version_minor = '8',
 			configure_flags = [
 				'--with-gdktarget=%{gdk_target}',
+				'--prefix="/Library/Frameworks/Mono.framework/Versions/Current"' if Package.profile.name == 'darwin' else '--prefix="%{prefix}"'
 #				'--disable-cups',
 			]
 		)
-
+		self.configure = './configure'
 		self.gdk_target = 'x11'
+		self.makeinstall = 'make install DESTDIR="%{prefix}"'
+
 		if Package.profile.name == 'darwin':
 			self.gdk_target = 'quartz'
 			self.sources.extend ([
@@ -39,4 +42,8 @@ class GtkPackage (GnomePackage):
 			for p in range (1, len (self.sources)):
 				self.sh ('patch -p1 < "%{sources[' + str (p) + ']}"')
 
+	def install(self):
+		Package.install(self)
+		self.sh('rsync -avzP %{prefix}/Library/Frameworks/Mono.framework/Versions/Current/* %{prefix}')
+		self.sh('rm -rf %{prefix}/Library/')
 GtkPackage ()
