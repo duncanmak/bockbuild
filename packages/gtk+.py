@@ -16,6 +16,8 @@ class GtkPackage (GnomePackage):
 		if Package.profile.name == 'darwin':
 			self.gdk_target = 'quartz'
 			self.sources.extend ([
+					# Custom gtkrc
+					'patches/gtkrc',
 
 					# post-2.24.8 commits from 2.24 branch
 					# quartz: fix a race condition when waking up the CGRunLoopgtk
@@ -39,11 +41,20 @@ class GtkPackage (GnomePackage):
 	def prep (self):
 		Package.prep (self)
 		if Package.profile.name == 'darwin':
-			for p in range (1, len (self.sources)):
+			for p in range (2, len (self.sources)):
 				self.sh ('patch -p1 < "%{sources[' + str (p) + ']}"')
 
 	def install(self):
 		Package.install(self)
-		self.sh('rsync -avzP %{prefix}/Library/Frameworks/Mono.framework/Versions/Current/* %{prefix}')
+		# Strip out self.prefix from the install root
+		self.sh('rsync -azP %{prefix}/Library/Frameworks/Mono.framework/Versions/Current/* %{prefix}')
 		self.sh('rm -rf %{prefix}/Library/')
+		
+		self.install_gtkrc ()
+
+	def install_gtkrc(self):
+		origin = os.path.join (self.package_dest_dir (), self.sources[1])
+		destination = "%s/etc/gtk-2.0/gtkrc" % self.prefix
+		self.sh('cp %s %s' % (origin, destination))
+		
 GtkPackage ()
