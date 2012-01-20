@@ -82,21 +82,23 @@ class Package:
 
 		self.sources = local_sources
 
+	def package_root_dir (self, build_root = ''):
+		source_cache = os.getenv('BOCKBUILD_SOURCE_CACHE')
+		if source_cache != None:
+			print 'Using BOCKBUILD_SOURCE_CACHE = %s' % source_cache
+		return source_cache or build_root
+
+	def package_dest_dir (self, build_root = ''):
+		return os.path.join (self.package_root_dir (build_root), '%s-%s' % (self.name, self.version))
+
 	def start_build (self):
 		Package.last_instance = None
 		
 		expand_macros (self, self)
 
 		profile = Package.profile
-
-		source_cache = os.getenv('BOCKBUILD_SOURCE_CACHE')
-		if source_cache != None:
-			print 'Using BOCKBUILD_SOURCE_CACHE = %s' % source_cache
-
 		namever = '%s-%s' % (self.name, self.version)
 		package_dir = os.path.dirname (os.path.realpath (self._path))
-		package_root_dir = source_cache or profile.build_root
-		package_dest_dir = os.path.join (package_root_dir, namever)
 		package_build_dir = os.path.join (os.path.join (profile.build_root, namever), '_build')
 		build_success_file = os.path.join (profile.build_root, namever + '.success')
 		install_success_file = os.path.join (profile.build_root, namever + '.install')
@@ -120,7 +122,7 @@ class Package:
 		shutil.rmtree (package_build_dir, ignore_errors = True)
 		os.makedirs (package_build_dir)
 
-		self._fetch_sources (package_dir, package_dest_dir)
+		self._fetch_sources (package_dir, self.package_dest_dir (profile.build_root))
 
 		os.chdir (package_build_dir)
 
