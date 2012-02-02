@@ -13,14 +13,6 @@ class MonoMasterPackages:
 				'pkg-config.py'
 				])
 
-    # Mono
-		self.packages.extend([
-				'mono-master.py',
-				# 'libgdiplus.py',
-				# 'gtk-sharp.py',
-				# 'mono-addins.py',
-				])
-
 		# # Base Libraries
 		self.packages.extend([
 				'libpng.py',
@@ -46,6 +38,16 @@ class MonoMasterPackages:
 				'hicolor-icon-theme.py',
 				'gtk-engines.py',
 				# 'gtk-quartz-engine.py'
+				])
+
+		# Mono
+		self.packages.extend([
+				'mono-master.py',
+				'libgdiplus.py',
+				'gtk-sharp-2.12-release.py',
+				# 'boo.py',
+				# 'nant.py',
+				'mono-addins.py',
 				])
 
 		self.packages = [os.path.join('..', '..', 'packages', p) for p in self.packages]
