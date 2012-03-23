@@ -3,3 +3,5 @@ profiles/*/bundle.glick
 solitary/Options.cs
 solitary/Solitary.exe*
 .DS_Store
+*.pyc
+*~
